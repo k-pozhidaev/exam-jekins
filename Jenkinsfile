@@ -25,7 +25,7 @@ pipeline {
         stage('write result') {
             steps {
                 script {
-                    echo filesTop
+                    echo filesTop.getClass()
                 }
             }
         }
