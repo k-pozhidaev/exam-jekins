@@ -16,7 +16,7 @@ pipeline {
         }
         stage('find top biggest') {
             steps {
-                sh(returnStdout: true, script: "find / -type f -exec du -a {} + 2>/dev/null | sort -n -r | head -n ${params.number_of_files}")
+                echo sh(returnStdout: true, script: "find / -type f -exec du -a {} + 2>/dev/null | sort -n -r | head -n ${params.number_of_files}")
             }
         }
         stage('write result') {
