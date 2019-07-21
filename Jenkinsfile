@@ -17,12 +17,12 @@ pipeline {
         stage('find top biggest') {
             steps {
 
-                FILES_TOP=sh(returnStdout: true, script: "find / -type f -exec du -a {} + 2>/dev/null | sort -n -r | head -n ${params.number_of_files}")
+                filesTop=sh(returnStdout: true, script: "find / -type f -exec du -a {} + 2>/dev/null | sort -n -r | head -n ${params.number_of_files}")
             }
         }
         stage('write result') {
             steps {
-                echo FILES_TOP
+                echo filesTop
             }
         }
         stage('git push') {

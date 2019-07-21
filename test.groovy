@@ -1,3 +1,1 @@
-
-sh(script: 'ls -lha',
-        returnStdout: true)
+a='test'
