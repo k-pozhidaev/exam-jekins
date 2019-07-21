@@ -24,7 +24,9 @@ pipeline {
         }
         stage('write result') {
             steps {
-                echo 'write '
+                script {
+                    echo filesTop
+                }
             }
         }
         stage('git push') {
