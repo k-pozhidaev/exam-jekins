@@ -1,14 +1,12 @@
 pipeline {
     agent any
-//number_of_files
-//result_format
+
     parameters {
         string(name: 'number_of_files', defaultValue: '5', description: 'Number of files?')
         choice(name: 'result_format', choices: ['TXT', 'JSON', 'YML'], description: 'Format')
 
     }
 
-//    du -a / 2>/dev/null | sort -n -r | head -n 20
     stages {
         stage('read parameters') {
             steps {
@@ -18,8 +16,7 @@ pipeline {
         }
         stage('find top biggest') {
             steps {
-                echo 'Testing..'
-
+                sh(returnStdout: true, script: "find / -type f -exec du -a {} + 2>/dev/null | sort -n -r | head -n ${params.number_of_files}")
             }
         }
         stage('write result') {

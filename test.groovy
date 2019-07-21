@@ -1,1 +1,3 @@
-sh(returnStdout: true, script: 'du -a /Users/i337731/projects/exam-jekins 2>/dev/null | sort -n -r | head -n 20')
+
+sh(script: 'ls -lha',
+        returnStdout: true)
