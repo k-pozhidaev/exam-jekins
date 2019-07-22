@@ -26,13 +26,13 @@ pipeline {
         }
         stage('write result') {
             steps {
-                if (params.result_format == "TXT") {
+                when (params.result_format == "TXT") {
                     echo list_to_plain_text(filesTop)
                 }
-                if (params.result_format == "JSON") {
+                when (params.result_format == "JSON") {
                     echo JsonOutput.toJson(filesTop)
                 }
-                if (params.result_format == "YML") {
+                when (params.result_format == "YML") {
                     echo list_to_yaml_string(filesTop)
                 }
                 echo filesTop.getClass().toString()
