@@ -25,18 +25,16 @@ pipeline {
             }
         }
         stage('write result') {
-            steps {
-                when (params.result_format == "TXT") {
-                    echo list_to_plain_text(filesTop)
-                }
-                when (params.result_format == "JSON") {
-                    echo JsonOutput.toJson(filesTop)
-                }
-                when (params.result_format == "YML") {
-                    echo list_to_yaml_string(filesTop)
-                }
-                echo filesTop.getClass().toString()
+            if (params.result_format == "TXT") {
+                echo list_to_plain_text(filesTop)
             }
+            if (params.result_format == "JSON") {
+                echo JsonOutput.toJson(filesTop)
+            }
+            if (params.result_format == "YML") {
+                echo list_to_yaml_string(filesTop)
+            }
+            if filesTop.getClass().toString()
         }
         stage('git push') {
             steps {
