@@ -1,5 +1,3 @@
-import groovy.json.JsonOutput
-
 pipeline {
     agent any
 
@@ -31,7 +29,7 @@ pipeline {
                         echo filesTop.inject('') { str, item -> str + "${item}\n" }
                     }
                     if (params.result_format == "JSON") {
-                        echo '[' + filesTop.inject {str, item -> str + "\"${item}\","} + ']'
+                        echo '[' + filesTop.inject('') {str, item -> str + "\"${item}\","} + ']'
                     }
                     if (params.result_format == "YML") {
                         echo filesTop.inject('fileNames:\n') { str, item -> str + "\t- ${item}\n" }
