@@ -9,7 +9,7 @@ a="""75568\t/usr/share/jenkins/jenkins.war
 """
 //a.split("\n").each { println it.split("\t")[1] }
 names = a.split("\n").collect { it.split("\t")[1] }
-json = JsonOutput.toJson(names)
+//json = JsonOutput.toJson(names)
 //
 //println 'JSON'
 //println json
@@ -17,7 +17,6 @@ json = JsonOutput.toJson(names)
 //println listToYamlString(names)
 //println 'TEXT'
 //println listToPlainText(names)
-new File("result").write("")
 
 //Stream.of(a.split("\n"))
 
@@ -33,4 +32,4 @@ def static listToPlainText(List<String> names){
     return sb.toString()
 }
 
-println names.collect { it + "\t- ${it}\n" }
+println names.inject('') { str, item -> str + "${item}\n" }

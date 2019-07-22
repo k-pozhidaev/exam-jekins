@@ -28,17 +28,13 @@ pipeline {
             steps {
                 script {
                     if (params.result_format == "TXT") {
-                        final StringBuilder sb = new StringBuilder()
-                        names.each {sb.append("${it}\n")}
-                        echo sb.toString()
+                        echo filesTop.inject('') { str, item -> str + "${item}\n" }
                     }
                     if (params.result_format == "JSON") {
                         echo JsonOutput.toJson(filesTop)
                     }
                     if (params.result_format == "YML") {
-                        final StringBuilder sb = new StringBuilder('fileNames:\n')
-                        names.each { sb.append("\t- ${it}\n") }
-                        echo sb.toString()
+                        echo filesTop.inject('fileNames:\n') { str, item -> str + "\t- ${item}\n" }
                     }
                 }
             }
