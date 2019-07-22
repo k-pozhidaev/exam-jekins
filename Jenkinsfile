@@ -27,13 +27,13 @@ pipeline {
         stage('write result') {
             steps {
                 dir('/tmp/tmpDir') {
-                    if (params.number_of_files == "TXT") {
+                    if (params.result_format == "TXT") {
                         echo listToPlainText(filesTop)
                     }
-                    if (params.number_of_files == "JSON") {
+                    if (params.result_format == "JSON") {
                         echo JsonOutput.toJson(filesTop)
                     }
-                    if (params.number_of_files == "YML") {
+                    if (params.result_format == "YML") {
                         echo listToYamlString(filesTop)
                     }
                     echo filesTop.getClass().toString()
