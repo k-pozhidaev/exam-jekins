@@ -26,7 +26,7 @@ pipeline {
         }
         stage('write result') {
             steps {
-                dir('/tmp/tmpDir') {
+                script {
                     if (params.result_format == "TXT") {
                         echo listToPlainText(filesTop)
                     }
