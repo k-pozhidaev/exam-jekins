@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     filesTop = sh(returnStdout: true, script: "find / -type f -exec du -a {} + 2>/dev/null | sort -n -r | head -n ${params.number_of_files}")
-                    echo filesTop.trim()
+                    filesTop = filesTop.trim().split("\n").collect { it.split("\t")[1] }
                 }
             }
         }
