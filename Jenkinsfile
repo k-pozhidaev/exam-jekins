@@ -25,15 +25,21 @@ pipeline {
             }
         }
         stage('write result') {
-            script {
-                if (params.result_format == "TXT") {
-                    echo list_to_plain_text(filesTop)
-                }
-                if (params.result_format == "JSON") {
-                    echo JsonOutput.toJson(filesTop)
-                }
-                if (params.result_format == "YML") {
-                    echo list_to_yaml_string(filesTop)
+            steps {
+                script {
+                    if (params.result_format == "TXT") {
+                        final StringBuilder sb = new StringBuilder()
+                        names.each {sb.append("${it}\n")}
+                        echo sb.toString()
+                    }
+                    if (params.result_format == "JSON") {
+                        echo JsonOutput.toJson(filesTop)
+                    }
+                    if (params.result_format == "YML") {
+                        final StringBuilder sb = new StringBuilder('fileNames:\n')
+                        names.each { sb.append("\t- ${it}\n") }
+                        echo sb.toString()
+                    }
                 }
             }
         }
@@ -43,17 +49,4 @@ pipeline {
             }
         }
     }
-}
-
-
-def list_to_yaml_string(List<String> names) {
-    final StringBuilder sb = new StringBuilder('fileNames:\n')
-    names.each { sb.append("\t- ${it}\n") }
-    return sb.toString()
-}
-
-def list_to_plain_text(List<String> names) {
-    final StringBuilder sb = new StringBuilder()
-    names.each {sb.append("${it}\n")}
-    return sb.toString()
 }
