@@ -34,7 +34,6 @@ pipeline {
             if (params.result_format == "YML") {
                 echo list_to_yaml_string(filesTop)
             }
-            if filesTop.getClass().toString()
         }
         stage('git push') {
             steps {
