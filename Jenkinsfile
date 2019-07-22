@@ -49,13 +49,13 @@ pipeline {
 }
 
 
-def list_to_yaml_string(List<String> names) {
+def list_to_yaml_string(List<String> names, Closure c) {
     final StringBuilder sb = new StringBuilder('fileNames:\n')
     names.each { sb.append("\t- ${it}\n") }
     return sb.toString()
 }
 
-def list_to_plain_text(List<String> names){
+def list_to_plain_text(List<String> names, Closure c) {
     final StringBuilder sb = new StringBuilder()
     names.each {sb.append("${it}\n")}
     return sb.toString()
