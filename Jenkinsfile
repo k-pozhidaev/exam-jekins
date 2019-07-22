@@ -25,15 +25,17 @@ pipeline {
         stage('write result') {
             steps {
                 script {
+                    def result
                     if (params.result_format == "TXT") {
-                        echo filesTop.inject('') { str, item -> str + "${item}\n" }
+                        result =  filesTop.inject('') { str, item -> str + "${item}\n" }
                     }
                     if (params.result_format == "JSON") {
-                        echo '[' + filesTop.inject('') {str, item -> str + "\"${item}\","} + ']'
+                        result =  '[' + filesTop.inject('') {str, item -> str + "\"${item}\","} + ']'
                     }
                     if (params.result_format == "YML") {
-                        echo filesTop.inject('fileNames:\n') { str, item -> str + "\t- ${item}\n" }
+                        result =  filesTop.inject('fileNames:\n') { str, item -> str + "\t- ${item}\n" }
                     }
+                    echo result
                 }
             }
         }
