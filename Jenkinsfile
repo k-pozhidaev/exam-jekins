@@ -1,3 +1,5 @@
+import groovy.json.JsonOutput
+
 pipeline {
     agent any
 
@@ -24,7 +26,16 @@ pipeline {
         }
         stage('write result') {
             steps {
-                script {
+                dir('/tmp/tmpDir') {
+                    if (params.number_of_files == "TXT") {
+                        echo listToPlainText(filesTop)
+                    }
+                    if (params.number_of_files == "JSON") {
+                        echo JsonOutput.toJson(filesTop)
+                    }
+                    if (params.number_of_files == "YML") {
+                        echo listToYamlString(filesTop)
+                    }
                     echo filesTop.getClass().toString()
                 }
             }
@@ -35,4 +46,17 @@ pipeline {
             }
         }
     }
+}
+
+
+def static listToYamlString(List<String> names) {
+    final StringBuilder sb = new StringBuilder('fileNames:\n')
+    names.each { sb.append("\t- ${it}\n") }
+    return sb.toString()
+}
+
+def static listToPlainText(List<String> names){
+    final StringBuilder sb = new StringBuilder()
+    names.each {sb.append("${it}\n")}
+    return sb.toString()
 }
